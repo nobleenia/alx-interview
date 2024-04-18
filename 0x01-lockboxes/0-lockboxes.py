@@ -21,7 +21,7 @@ def canUnlockAll(boxes):
         bool: True if all boxes can be unlocked,
         otherwise False.
     """
-    # Start with box 0 unlocked and its keys available to use
+    # Start with box 0 unlocked and its keys available
     unlocked = set([0])
     queue = [0]  # Use a list as a queue for BFS
 
@@ -34,8 +34,8 @@ def canUnlockAll(boxes):
             # If the key corresponds to a
             # box we haven't unlocked yet
             if key not in unlocked and key < len(boxes):
-                unlocked.add(key)  # Mark the box as unlocked
-                queue.append(key)  # Add this box to the queue
+                unlocked.add(key) # Mark box as unlocked
+                queue.append(key) # Add box to the queue
 
     # If the number of unlocked boxes equals
     # the number of boxes, we've unlocked all of them
