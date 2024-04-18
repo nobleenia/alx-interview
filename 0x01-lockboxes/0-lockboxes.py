@@ -21,18 +21,23 @@ def canUnlockAll(boxes):
         bool: True if all boxes can be unlocked,
         otherwise False.
     """
-    if (type(boxes) is not list):
-        return False
+    # Start with box 0 unlocked and its keys available to use
+    unlocked = set([0])
+    queue = [0]  # Use a list as a queue for BFS
 
-    if (len(boxes) == 0):
-        return False
+    while queue:
+        # Get the next box to process
+        current_box = queue.pop(0)
+        
+        # Iterate over each key in the current box
+        for key in boxes[current_box]:
+            # If the key corresponds to a box we haven't unlocked yet
+            if key not in unlocked and key < len(boxes):
+                unlocked.add(key)  # Mark the box as unlocked
+                queue.append(key)  # Add this box to the queue to process its contents
+        
+    # If the number of unlocked boxes equals the number of boxes, we've unlocked all of them
+    return len(unlocked) == len(boxes)
 
-    keys = [0]
-    for i in keys:
-        for j in boxes[i]:
-            if j not in keys and j != i and j < len(boxes) and j != 0:
-                keys.append(j)
-    if len(keys) == len(boxes):
-        return True
-    else:
-        return False
+if __name__ == "__main__":
+    canUnlockAll(boxes)
