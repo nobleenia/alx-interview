@@ -38,6 +38,3 @@ def canUnlockAll(boxes):
         
     # If the number of unlocked boxes equals the number of boxes, we've unlocked all of them
     return len(unlocked) == len(boxes)
-
-if __name__ == "__main__":
-    canUnlockAll(boxes)
