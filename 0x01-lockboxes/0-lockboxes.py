@@ -31,12 +31,14 @@ def canUnlockAll(boxes):
         
         # Iterate over each key in the current box
         for key in boxes[current_box]:
-            # If the key corresponds to a box we haven't unlocked yet
+            # If the key corresponds to a
+            # box we haven't unlocked yet
             if key not in unlocked and key < len(boxes):
                 unlocked.add(key)  # Mark the box as unlocked
-                queue.append(key)  # Add this box to the queue to process its contents
-        
-    # If the number of unlocked boxes equals the number of boxes, we've unlocked all of them
+                queue.append(key)  # Add this box to the queue
+
+    # If the number of unlocked boxes equals
+    # the number of boxes, we've unlocked all of them
     return len(unlocked) == len(boxes)
 
 if __name__ == "__main__":
