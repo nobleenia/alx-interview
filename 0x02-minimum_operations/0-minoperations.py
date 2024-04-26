@@ -6,6 +6,7 @@ to reach exactly n 'H' characters in a text file
 using only Copy All and Paste operations.
 """
 
+
 def minOperations(n):
     """
     Determine the minimum number of operations
