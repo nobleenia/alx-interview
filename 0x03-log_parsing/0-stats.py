@@ -8,6 +8,7 @@ a keyboard interruption about total file size and HTTP status codes.
 import sys
 import signal
 
+
 # Function to handle keyboard interruption
 def signal_handler(sig, frame):
     print_stats()
