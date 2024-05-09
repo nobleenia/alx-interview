@@ -1,19 +1,19 @@
 #!/usr/bin/python3
 """
-This module contains a function to validate if a list of integers
-represents a valid UTF-8 encoding.
+This module contains a function to validate if a
+list of integers represents a valid UTF-8 encoding.
 """
 
 
 def validUTF8(data):
     """
-    Check if a list of integers represents a valid UTF-8 encoding.
-
+    Check if list of integers represents a valid UTF-8 encoding.
     Args:
-        data (list of int): The list of integers, each representing one byte.
-
+        data (list of int): The list of integers,
+        each representing one byte.
     Returns:
-        bool: True if the data is a valid UTF-8 encoding, False otherwise.
+        bool: True if the data is a valid UTF-8 encoding,
+        False otherwise.
     """
     num_bytes = 0
 
@@ -27,7 +27,7 @@ def validUTF8(data):
         num = num % mask
 
         if num_bytes == 0:
-            # Determine how many bytes the current character requires
+            # Determine how many bytes the current char requires
             if (num >> 5) == 0b110:
                 num_bytes = 1
             elif (num >> 4) == 0b1110:
@@ -35,7 +35,7 @@ def validUTF8(data):
             elif (num >> 3) == 0b11110:
                 num_bytes = 3
             elif (num >> 7):
-                # If the byte starts with '10' or '0', it's a 1-byte character
+                # If the byte starts with '10' or '0', it's 1-byte
                 # or continuation byte incorrectly placed.
                 return False
         else:
@@ -44,16 +44,5 @@ def validUTF8(data):
                 return False
             num_bytes -= 1
 
-    # All continuation bytes should have been consumed in a valid sequence
+    # All continuation bytes should be consumed in a valid sequence
     return num_bytes == 0
-
-# Testing code (not included in the script file for deployment)
-if __name__ == "__main__":
-    data = [65]
-    print(validUTF8(data))  # True
-
-    data = [80, 121, 116, 104, 111, 110, 32, 105, 115, 32, 99, 111, 111, 108, 33]
-    print(validUTF8(data))  # True
-
-    data = [229, 65, 127, 256]
-    print(validUTF8(data))  # False
