@@ -8,15 +8,15 @@ represents a valid UTF-8 encoding.
 def validUTF8(data):
     """
     Check if a list of integers represents a valid UTF-8 encoding.
-    
+
     Args:
         data (list of int): The list of integers, each representing one byte.
-    
+
     Returns:
         bool: True if the data is a valid UTF-8 encoding, False otherwise.
     """
     num_bytes = 0
-    
+
     # Masks to check the most significant bits
     mask1 = 1 << 7
     mask2 = 1 << 6
@@ -25,7 +25,7 @@ def validUTF8(data):
         # Mask to get the 8 least significant bits
         mask = 1 << 8
         num = num % mask
-        
+
         if num_bytes == 0:
             # Determine how many bytes the current character requires
             if (num >> 5) == 0b110:
@@ -43,7 +43,7 @@ def validUTF8(data):
             if not (num >> 6) == 0b10:
                 return False
             num_bytes -= 1
-    
+
     # All continuation bytes should have been consumed in a valid sequence
     return num_bytes == 0
 
