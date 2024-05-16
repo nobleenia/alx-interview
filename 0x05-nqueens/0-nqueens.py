@@ -60,5 +60,4 @@ if __name__ == "__main__":
     if N < 4:
         print_usage_and_exit("N must be at least 4")
 
-
     solve_nqueens(N)
