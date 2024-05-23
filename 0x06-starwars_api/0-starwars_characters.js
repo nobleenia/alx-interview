@@ -10,7 +10,7 @@ const request = require('request');
 const filmId = process.argv[2];
 const filmUrl = `https://swapi-api.alx-tools.com/api/films/${filmId}/`;
 
-// Makes API request, sets async to allow await promise
+// Request API
 request(filmUrl, async (err, res, body) => {
   if (err) {
     console.error(err);
@@ -21,11 +21,10 @@ request(filmUrl, async (err, res, body) => {
     return;
   }
 
-  // Find URLs of each character in the film as a list obj
+  // Find URLs of each character in the film
   const charUrlList = JSON.parse(body).characters;
 
-  // Use URL list to character pages to make new requests
-  // await queues requests until they resolve in order
+  // Use URL list to character pages
   for (const charUrl of charUrlList) {
     await new Promise((resolve, reject) => {
       request(charUrl, (err, res, body) => {
