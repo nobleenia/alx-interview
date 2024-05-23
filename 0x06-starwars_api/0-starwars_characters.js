@@ -1,32 +1,48 @@
 #!/usr/bin/node
 
 const request = require('request');
-const movieId = process.argv[2];
 
+const movieId = process.argv[2];
 if (!movieId) {
-  console.log('Usage: ./0-starwars_characters.js <Movie ID>');
+  console.error('Please provide a Movie ID');
   process.exit(1);
 }
 
-const apiUrl = `https://swapi-api.hbtn.io/api/films/${movieId}`;
+const url = `https://swapi.dev/api/films/${movieId}/`;
 
-request(apiUrl, (error, response, body) => {
+request(url, (error, response, body) => {
   if (error) {
     console.error(error);
+    return;
+  }
+  if (response.statusCode !== 200) {
+    console.error(`Failed to fetch movie: ${response.statusCode}`);
     return;
   }
 
   const film = JSON.parse(body);
   const characters = film.characters;
+  const charactersCount = characters.length;
+  let charactersFetched = 0;
 
-  characters.forEach((character) => {
-    request(character, (error, response, body) => {
+  characters.forEach(characterUrl => {
+    request(characterUrl, (error, response, body) => {
       if (error) {
         console.error(error);
         return;
       }
-      const characterData = JSON.parse(body);
-      console.log(characterData.name);
+      if (response.statusCode !== 200) {
+        console.error(`Failed to fetch character: ${response.statusCode}`);
+        return;
+      }
+
+      const character = JSON.parse(body);
+      console.log(character.name);
+      charactersFetched++;
+
+      if (charactersFetched === charactersCount) {
+        process.exit(0);
+      }
     });
   });
 });
