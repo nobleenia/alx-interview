@@ -1,48 +1,49 @@
 #!/usr/bin/node
+/**
+ * Prints all characters of a Star Wars movie.
+ * The first positional argument passed is the Movie ID 
+ * Display one character name per line in the same order
+ * as the “characters” list in the /films/ endpoint.
+ */
 
 const request = require('request');
+const filmId = process.argv[2];
+const filmUrl = `https://swapi-api.alx-tools.com/api/films/${filmId}/`;
 
-const movieId = process.argv[2];
-if (!movieId) {
-  console.error('Please provide a Movie ID');
-  process.exit(1);
-}
-
-const url = `https://swapi.dev/api/films/${movieId}/`;
-
-request(url, (error, response, body) => {
-  if (error) {
-    console.error(error);
+// Makes API request, sets async to allow await promise
+request(filmUrl, async (err, res, body) => {
+  if (err) {
+    console.error(err);
     return;
   }
-  if (response.statusCode !== 200) {
-    console.error(`Failed to fetch movie: ${response.statusCode}`);
+  if (res.statusCode !== 200) {
+    console.error(`Failed to fetch film: ${res.statusCode}`);
     return;
   }
 
-  const film = JSON.parse(body);
-  const characters = film.characters;
-  const charactersCount = characters.length;
-  let charactersFetched = 0;
+  // Find URLs of each character in the film as a list obj
+  const charUrlList = JSON.parse(body).characters;
 
-  characters.forEach(characterUrl => {
-    request(characterUrl, (error, response, body) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      if (response.statusCode !== 200) {
-        console.error(`Failed to fetch character: ${response.statusCode}`);
-        return;
-      }
+  // Use URL list to character pages to make new requests
+  // await queues requests until they resolve in order
+  for (const charUrl of charUrlList) {
+    await new Promise((resolve, reject) => {
+      request(charUrl, (err, res, body) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+          return;
+        }
+        if (res.statusCode !== 200) {
+          console.error(`Failed to fetch character: ${res.statusCode}`);
+          reject(new Error(`Failed to fetch character: ${res.statusCode}`));
+          return;
+        }
 
-      const character = JSON.parse(body);
-      console.log(character.name);
-      charactersFetched++;
-
-      if (charactersFetched === charactersCount) {
-        process.exit(0);
-      }
+        // Find each character name and print in URL order
+        console.log(JSON.parse(body).name);
+        resolve();
+      });
     });
-  });
+  }
 });
