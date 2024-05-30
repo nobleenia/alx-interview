@@ -6,3 +6,5 @@
 3. 0x03. Log Parsing: [0x03-log_parsing](https://github.com/nobleenia/alx-interview/tree/master/0x03-log_parsing)
 4. 0x04. UTF-8 Validation: [0x04-utf8_validation](https://github.com/nobleenia/alx-interview/tree/master/0x04-utf8_validation)
 5. 0x05. N Queens: [0x05-nqueens](https://github.com/nobleenia/alx-interview/tree/master/0x05-nqueens)
+6.
+7. 0x07. Rotate 2D Matrix: [0x07-rotate_2d_matrix](https://github.com/nobleenia/alx-interview/tree/master/0x07-rotate_2d_matrix)
