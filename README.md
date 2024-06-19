@@ -9,3 +9,4 @@
 6. 0x06. Star Wars API: [0x06-starwars_api](https://github.com/nobleenia/alx-interview/tree/master/0x06-starwars_api)
 7. 0x07. Rotate 2D Matrix: [0x07-rotate_2d_matrix](https://github.com/nobleenia/alx-interview/tree/master/0x07-rotate_2d_matrix)
 8. 0x09. Island Perimeter: [0x09-island_perimeter](https://github.com/nobleenia/alx-interview/tree/master/0x09-island_perimeter)
+9. 0x0A. Prime Game: [0x0A-primegame](https://github.com/nobleenia/alx-interview/tree/master/0x0A-primegame)
